@@ -67,7 +67,7 @@
     <licenses>
         <license>
             <name>BSD licence</name>
-            <url>http://antlr.org/license.html</url>
+            <url>http://antlr3.org/license.html</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
