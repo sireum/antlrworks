@@ -1486,7 +1486,8 @@ public class GrammarWindow
     }
 
     public void hideProgress() {
-        progress.close();
+        if (progress != null)
+            progress.close();
     }
 
     public void goToBackward() {

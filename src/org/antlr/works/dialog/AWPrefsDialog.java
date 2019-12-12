@@ -34,11 +34,9 @@ package org.antlr.works.dialog;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.*;
-import org.antlr.works.IDE;
 import org.antlr.works.debugger.local.DBLocal;
 import org.antlr.works.prefs.AWPrefs;
 import org.antlr.works.stats.StatisticsAW;
-import org.antlr.works.utils.HelpManager;
 import org.antlr.works.utils.TextUtils;
 import org.antlr.works.utils.Utils;
 import org.antlr.xjlib.appkit.app.XJApplication;
@@ -53,7 +51,6 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 
 public class AWPrefsDialog extends XJPanel {
@@ -285,12 +282,6 @@ public class AWPrefsDialog extends XJPanel {
             }
         });
 
-        checkForUpdatesButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                HelpManager.checkUpdates(getJavaContainer(), false);
-            }
-        });
-
         getPreferences().bindToPreferences(updateTypeCombo, AWPrefs.PREF_UPDATE_TYPE, AWPrefs.DEFAULT_UPDATE_TYPE);
         getPreferences().bindToPreferences(downloadPathField, AWPrefs.PREF_DOWNLOAD_PATH, AWPrefs.DEFAULT_DOWNLOAD_PATH);
     }
@@ -342,10 +333,10 @@ public class AWPrefsDialog extends XJPanel {
         if ("".equals(testTextArea.getText())) {
             try {
                 if ("JAVA".equalsIgnoreCase(grammarLanguage)) {
-                    testTextArea.setText(Utils.stringFromFile(IDE.getApplicationPath() + File.separatorChar + 
+                    testTextArea.setText(Utils.stringFromResource(
                             DBLocal.parserGlueCodeTemplatePath + DBLocal.parserGlueCodeTemplateName + ".st"));
                 } else if ("PYTHON".equalsIgnoreCase(grammarLanguage)) {
-                    testTextArea.setText(Utils.stringFromFile(IDE.getApplicationPath() + File.separatorChar +
+                    testTextArea.setText(Utils.stringFromResource(
                             DBLocal.parserGlueCodeTemplatePath + DBLocal.parserGlueCodeTemplateName + "_python.st"));
 
                 }

@@ -4,8 +4,8 @@ import org.antlr.xjlib.foundation.XJSystem;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 /*
 
 [The "BSD licence"]
@@ -39,6 +39,27 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 public class Utils {
 
+    public static String stringFromResource(String resource) throws IOException {
+        InputStream is = Utils.class.getResourceAsStream("../../../../" + resource);
+        try {
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+            int nRead;
+            byte[] data = new byte[16384];
+
+            while ((nRead = is.read(data, 0, data.length)) != -1) {
+                buffer.write(data, 0, nRead);
+            }
+
+            return new String(buffer.toByteArray(), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (is != null) is.close();
+        }
+    }
+
     public static String stringFromFile(String file) throws IOException {
         FileInputStream fis = new FileInputStream(file);
         try {
@@ -51,7 +72,7 @@ public class Utils {
                 }
                 return new String(b);
             } else {
-                return "";                
+                return "";
             }
         } finally {
             fis.close();

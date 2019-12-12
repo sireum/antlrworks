@@ -341,42 +341,11 @@ public class IDE extends XJApplicationDelegate implements XJMenuItemDelegate {
         }
     }
 
-    public void customizeHelpMenu(XJMenu menu) {
-        menu.insertItemAfter(new XJMenuItem("Check for Updates", GrammarWindowMenu.MI_CHECK_UPDATES, this), XJMainMenuBar.MI_HELP);
-        menu.insertItemAfter(new XJMenuItem("Send Feedback", GrammarWindowMenu.MI_SEND_FEEDBACK, this), XJMainMenuBar.MI_HELP);
-        menu.insertItemAfter(new XJMenuItem("Submit Statistics...", GrammarWindowMenu.MI_SUBMIT_STATS, this), XJMainMenuBar.MI_HELP);
-        menu.insertSeparatorAfter(XJMainMenuBar.MI_HELP);
-    }
-
     public void handleMenuEvent(XJMenu menu, XJMenuItem item) {
-        switch(item.getTag()) {
-            case GrammarWindowMenu.MI_SUBMIT_STATS:
-                submitStats(getDefaultParent());
-                break;
-            case GrammarWindowMenu.MI_SEND_FEEDBACK:
-                submitFeedback(getDefaultParent());
-                break;
-            case GrammarWindowMenu.MI_CHECK_UPDATES:
-                checkUpdates(getDefaultParent());
-                break;
-        }
     }
 
     public Container getDefaultParent() {
         return XJApplication.shared().getActiveWindow().getJavaContainer();
-    }
-
-    public static void checkUpdates(Container parent) {
-        StatisticsAW.shared().recordEvent(StatisticsAW.EVENT_CHECK_FOR_UPDATES);
-        HelpManager.checkUpdates(parent, false);
-    }
-
-    public static void submitFeedback(Container parent) {
-        HelpManager.sendFeedback(parent);
-    }
-
-    public static void submitStats(Container parent) {
-        HelpManager.submitStats(parent);
     }
 
     public static void showHelp(Container parent) {

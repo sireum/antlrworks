@@ -34,7 +34,6 @@ package org.antlr.works.dialog;
 import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.*;
-import org.antlr.works.IDE;
 import org.antlr.works.debugger.DebuggerTab;
 import org.antlr.works.debugger.local.DBLocal;
 import org.antlr.works.prefs.AWPrefs;
@@ -51,7 +50,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.io.File;
 import java.io.IOException;
 import java.util.prefs.Preferences;
 
@@ -177,10 +175,10 @@ public class DialogTestTemplate extends XJDialog {
     private String getDefaultTestRigByLanguage(String grammarLanguage) {
         try {
             if ("JAVA".equalsIgnoreCase(grammarLanguage)) {
-                return Utils.stringFromFile(IDE.getApplicationPath() + File.separatorChar +
+                return Utils.stringFromResource(
                         DBLocal.parserGlueCodeTemplatePath + DBLocal.parserGlueCodeTemplateName + ".st");
             } else if ("PYTHON".equalsIgnoreCase(grammarLanguage)) {
-                return Utils.stringFromFile(IDE.getApplicationPath() + File.separatorChar +
+                return Utils.stringFromResource(
                         DBLocal.parserGlueCodeTemplatePath + DBLocal.parserGlueCodeTemplateName + "_python.st");
             }
         } catch (IOException ioe) {
@@ -192,7 +190,7 @@ public class DialogTestTemplate extends XJDialog {
     private String getTestRigTemplateFromFile(String testRigFullPath) {
         if (testRigFullPath == null) return "";
         try {
-            return Utils.stringFromFile(testRigFullPath);
+            return Utils.stringFromResource(testRigFullPath);
         } catch (IOException ioe) {
             return "";
         }
