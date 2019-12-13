@@ -4,7 +4,6 @@ import org.antlr.xjlib.appkit.app.XJApplicationDelegate;
 import org.antlr.xjlib.appkit.swing.XJLookAndFeel;
 import org.antlr.xjlib.appkit.utils.XJAlert;
 import org.antlr.works.IDE;
-import org.antlr.works.dialog.DialogPersonalInfo;
 import org.antlr.works.dialog.DialogReports;
 import org.antlr.works.dialog.DialogReportsDelegate;
 import org.antlr.works.prefs.AWPrefs;
@@ -61,7 +60,6 @@ public class Statistics extends XJApplicationDelegate implements DialogReportsDe
             /** Ask the user to register if it didn't register on this machine previously */
             if(!AWPrefs.isUserRegistered()) {
                 AWPrefs.setServerID("");
-                new DialogPersonalInfo(null).runModal();
                 AWPrefs.setUserRegistered(true);
             }
 

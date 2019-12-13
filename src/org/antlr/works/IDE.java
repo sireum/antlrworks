@@ -39,7 +39,6 @@ import org.antlr.works.components.GrammarWindow;
 import org.antlr.works.components.GrammarWindowMenu;
 import org.antlr.works.dialog.AWPrefsDialog;
 import org.antlr.works.dialog.DialogAbout;
-import org.antlr.works.dialog.DialogPersonalInfo;
 import org.antlr.works.dialog.NewWizardDialog;
 import org.antlr.works.prefs.AWPrefs;
 import org.antlr.works.stats.Statistics;
@@ -181,7 +180,6 @@ public class IDE extends XJApplicationDelegate implements XJMenuItemDelegate {
         if(!AWPrefs.isUserRegistered()) {
             closeSplashScreen();
             AWPrefs.setServerID("");
-            new DialogPersonalInfo(null).runModal();
             AWPrefs.setUserRegistered(true);
         }
     }

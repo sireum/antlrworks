@@ -131,10 +131,6 @@ public class DialogReports extends XJDialog {
         });
     }
 
-    public void dialogWillCloseOK() {
-        new SendReport().send();
-    }
-
     protected int getTypeIndex() {
         if(usesAWStats)
             return typeCombo.getSelectedIndex();
@@ -194,98 +190,6 @@ public class DialogReports extends XJDialog {
 
     protected boolean isHumanReadable() {
         return humanFormatCheck.isSelected();
-    }
-
-    protected class SendReport implements Runnable, XJDialogProgressDelegate {
-
-        public boolean error = false;
-        public boolean cancel = false;
-        public StatisticsReporter reporter;
-        public StatisticsManager managers[] = { guiManager, grammarManager, runtimeManager };
-
-        public void send() {
-            progress = new XJDialogProgress(parent);
-            progress.setDelegate(this);
-            progress.setCancellable(true);
-            progress.setProgressMax(managers.length);
-            progress.setIndeterminate(false);
-            progress.setInfo("Sending statistics...");
-            progress.display();
-
-            error = false;
-            cancel = false;
-            reporter = new StatisticsReporter();
-
-            new Thread(this).start();
-        }
-
-        public boolean submit() {
-            for (int i = 0; i < managers.length; i++) {
-                StatisticsManager manager = managers[i];
-
-                if(manager == guiManager && !usesAWStats)
-                    continue;
-
-                progress.setProgress(i+1);
-                if(!reporter.submitStats(manager))
-                    return true;
-
-                if(cancel)
-                    return false;
-            }
-            return false;
-        }
-
-        public void run() {
-            try {
-                error = submit();
-            } finally {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        finished();
-                    }
-                });
-            }
-        }
-
-        public void finished() {
-            if(!cancel) {
-                guiManager.reset();
-                grammarManager.reset();
-                runtimeManager.reset();
-            }
-
-            progress.close();
-
-            String title;
-            String info;
-
-            if(cancel) {
-                title = "Submission cancelled";
-                info = "The submission has been cancelled.";
-            } else {
-                if(error) {
-                    title = "Submission failed";
-                    info = "An error has occurred when sending the statistics:\n"+reporter.getError();
-                } else {
-                    title = "Thank you";
-                    info = "The statistics have been successfully transmitted.";
-                }
-            }
-            XJAlert.display(getJavaComponent(), title, info);
-
-            if(delegate != null) {
-                if(cancel)
-                    delegate.reportsCancelled();
-                else
-                    delegate.reportsSend(!error);
-            }
-        }
-
-        public void dialogDidCancel() {
-            cancel = true;
-            reporter.cancel();
-        }
     }
 
     protected class MyActionListener implements ActionListener {

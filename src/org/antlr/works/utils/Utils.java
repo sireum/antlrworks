@@ -40,7 +40,11 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 public class Utils {
 
     public static String stringFromResource(String resource) throws IOException {
-        InputStream is = Utils.class.getResourceAsStream("../../../../" + resource);
+        InputStream is = Utils.class.getResourceAsStream("/" + resource);
+        if (is == null) {
+            System.err.println("Could not load resource: " + resource);
+            return "";
+        }
         try {
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
@@ -52,9 +56,6 @@ public class Utils {
             }
 
             return new String(buffer.toByteArray(), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw e;
         } finally {
             if (is != null) is.close();
         }
