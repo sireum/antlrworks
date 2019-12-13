@@ -99,17 +99,7 @@ public class XJApplication extends XJObject implements XJApplicationInterface, X
 
     public static synchronized XJApplicationInterface shared() {
         if(shared == null) {
-            if(XJSystem.isMacOS()) {
-                try {
-                    shared = (XJApplication)Class.forName("org.antlr.xjlib.appkit.app.MacOS.XJApplicationMacOS").newInstance();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.err.println("XJApplication: cannot instanciate the MacOS application ("+e+")");
-                }
-            }
-
-            if(shared == null)
-                shared = new XJApplication();
+            shared = new XJApplication();
 
             ((XJApplication)shared).startup();
         }

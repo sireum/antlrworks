@@ -339,14 +339,12 @@ public class XJMainMenuBar implements XJMenuItemDelegate {
             menuFile.addItem(buildMenuItem(XJLocalizable.getXJString("SaveAs"), MI_SAVEAS));
         }
 
-        if(!XJSystem.isMacOS()) {
+        menuFile.addSeparator();
+        if(XJApplication.shared().hasPreferencesMenuItem()) {
+            menuFile.addItem(buildMenuItem(XJLocalizable.getXJString("Preferences"), KeyEvent.VK_COMMA, MI_PREFS));
             menuFile.addSeparator();
-            if(XJApplication.shared().hasPreferencesMenuItem()) {
-                menuFile.addItem(buildMenuItem(XJLocalizable.getXJString("Preferences"), KeyEvent.VK_COMMA, MI_PREFS));
-                menuFile.addSeparator();                
-            }
-            menuFile.addItem(buildMenuItem(XJLocalizable.getXJString("Quit"), KeyEvent.VK_Q, MI_QUIT));
         }
+        menuFile.addItem(buildMenuItem(XJLocalizable.getXJString("Quit"), KeyEvent.VK_Q, MI_QUIT));
         return menuFile;
     }
 
@@ -428,10 +426,8 @@ public class XJMainMenuBar implements XJMenuItemDelegate {
         menuHelp = new XJMenu();
         menuHelp.setTitle(XJLocalizable.getXJString("Help"));
         menuHelp.addItem(buildMenuItem(XJLocalizable.getXJString("Help"), MI_HELP));
-        if(!XJSystem.isMacOS()) {
-            menuHelp.addSeparator();
-            menuHelp.addItem(buildMenuItem(XJLocalizable.getXJString("About"), MI_ABOUT));
-        }
+        menuHelp.addSeparator();
+        menuHelp.addItem(buildMenuItem(XJLocalizable.getXJString("About"), MI_ABOUT));
         return menuHelp;
     }
 
