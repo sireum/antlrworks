@@ -1,0 +1,11 @@
+--- ASTParser.orig.stg	2014-03-25 08:04:56.000000000 -0500
++++ ASTParser.patched.stg	2021-12-29 10:41:24.000000000 -0600
+@@ -193,7 +193,7 @@
+ ruleCleanUp() ::= <<
+ <super.ruleCleanUp()>
+ <if(backtracking)>if ( <actions.(actionScope).synpredgate> ) {<endif>
++adaptor.setTokenBoundaries(root_0, retval.start, retval.stop);
+ retval.tree = (<ASTLabelType>)adaptor.rulePostProcessing(root_0);
+-adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+ <if(backtracking)>}<endif>
+ >>
