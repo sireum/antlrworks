@@ -1,6 +1,6 @@
---- ASTParser.orig.stg	2014-03-25 08:04:56.000000000 -0500
-+++ ASTParser.patched.stg	2021-12-29 10:41:24.000000000 -0600
-@@ -193,7 +193,7 @@
+--- ASTParser.stg.orig
++++ ASTParser.stg.patched
+@@ -193,7 +193,7 @@ new <terminalOptions.node>(<label>) <! new MethodNode(IDLabel) !>
  ruleCleanUp() ::= <<
  <super.ruleCleanUp()>
  <if(backtracking)>if ( <actions.(actionScope).synpredgate> ) {<endif>

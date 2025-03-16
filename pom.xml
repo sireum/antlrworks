@@ -29,7 +29,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- This property is used for dependencies and for the MANIFEST.MF customization -->
-        <antlr3.version>3.5.2</antlr3.version>
+        <antlr3.version>3.5.3</antlr3.version>
         <aw1.basedir>${basedir}</aw1.basedir>
         <version>SNAPSHOT</version>
     </properties>
